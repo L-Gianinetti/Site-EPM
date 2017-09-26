@@ -48,3 +48,9 @@ function logout()
     session_start();
     require "vue/vue_accueil.php";
 }
+
+//permet de changer les mots de passes de chaque compte respectivement
+function resetPwd()
+{
+
+}

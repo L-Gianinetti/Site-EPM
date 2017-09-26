@@ -9,7 +9,7 @@
 // connexion au serveur MySQL et à la BD
 // sortie : $connexion
 function getBD() {
-    $connexion = new PDO('mysql:host=localhost;dbname=recettes;charset=utf8', 'root', '');
+    $connexion = new PDO('mysql:host=localhost;dbname=epm3;charset=utf8', 'root', '');
     // permet d'avoir plus de détails sur les erreurs retournées
     $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $connexion;
@@ -21,10 +21,10 @@ function getBD() {
 function getPwdFromLogin($login)
 {
     $connexion = getBD();
-    $requete = "SELECT idUser, pwd FROM Rights WHERE login='" . $login . "'";
+    $requete = "SELECT Identifiant, MotDePasse FROM Login WHERE Identifiant='" . $login . "'";
     $resultats = $connexion->query($requete);
     if ($donnees = $resultats->fetch()) {
-        return $donnees['pwd'];
+        return $donnees['MotDePasse'];
     } else {
         return '';
     }

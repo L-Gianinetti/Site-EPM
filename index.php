@@ -22,6 +22,9 @@ try
             case 'logout' :
                 logout();
                 break;
+            case 'changer_pwd':
+                resetPwd();
+                break;
             default :
                 throw new Exception("action non valide");
         }

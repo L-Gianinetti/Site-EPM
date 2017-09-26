@@ -67,17 +67,20 @@
     <!-- Nav -->
     <nav id="nav">
         <ul>
-            <?php if (isset($_SESSION['login'])) 
+            <?php if (isset($_SESSION['login'])) {
                 ?>
 
                 <li id="mContenuPedagogique"><a href="index.php?action=rechercher_recettes">Contenu pédagogique</a></li>
                 <li id="mCorbeille"><a href="index.php?action=afficher_photo">Corbeille</a></li>
-                <li id="mDocumentationEnseignant"><a href="index.php?action=afficher_info_produit">Documentation enseignant</a></li>
+                <?php if($_SESSION['login']=="prof"){
+                    ?>
+                    <li id="mDocumentationEnseignant"><a href="index.php?action=afficher_info_produit">Documentation enseignant</a></li>
+                <?php } ?>
                 <li id="mFilms"><a href="index.php?action=afficher_info_theme">Films</a></li>
                 <li id="mPhotos"><a href="index.php?action=afficher_info_gouts">Photos</a></li>
                 <li id="mRecettes"><a href="index.php?action=afficher_info_techniques">Recettes</a></li>
 
-                <?php if (isset($_SESSION['admin']) && ($_SESSION['admin'] == 1 ) ) {?>
+                <?php if (($_SESSION['login'] == "prof" ) ) {?>
                     <li id="mPwdChange"><a href="index.php?action=changer_pwd">Modifier le mot de passe</a></li>
                 <?php } ?>
 
