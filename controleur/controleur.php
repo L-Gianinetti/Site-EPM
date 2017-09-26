@@ -1,5 +1,8 @@
 <?php
+
 require "modele/modele.php";
+
+
 // Affichage de la page d'accueil
 function accueil()
 {
@@ -10,18 +13,20 @@ function accueil()
 function login()
 {
     if(isset($_POST) && !empty($_POST['login']) && !empty($_POST['pwd'])) {
+
         extract($_POST);
 
         //Appel de la fonction qui vérifie si le login existe dans la BD et retourne le mot de passe
         //définie dans le modèle
-        $pwdFromBD = getPwdFromLogin($login);
+        $pwdFromBD= getPwdFromLogin($login);
 
         //on récupère bien un mot de passe
         if (isset($pwdFromBD) && !empty($pwdFromBD)) {
             if (password_verify($pwd, $pwdFromBD)) {
-                //on peut accéder au site. Attention ni la vue ni la fonction ci-dessous n'existe pas encore
-                //$resultats = getTypeRecette();
-                //require "vue/vue_liste_recettes.php";
+
+               $_SESSION['login'] = $login;
+               require "vue/vue_accueil.php";
+
             } else {
                 $msg_err= 'Le mot de passe est incorrect';
                 require "vue/vue_login.php";
@@ -33,4 +38,13 @@ function login()
     } else {
         require "vue/vue_login.php";
     }
+
+}
+
+//déconnecte l'utilisateur retourne au menu
+function logout()
+{
+    session_destroy();
+    session_start();
+    require "vue/vue_accueil.php";
 }

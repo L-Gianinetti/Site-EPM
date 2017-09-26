@@ -1,17 +1,19 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Lucas.GIANINETTI
+ * User: Melvyn.HERZIG
  * Date: 05.09.2017
- * Time: 14:01
+ * Time: 14:02
  */
+
 // connexion au serveur MySQL et à la BD
 // sortie : $connexion
 function getBD() {
-    $connexion = new PDO('mysql:host=localhost;dbname=cpm ;charset=utf8', 'root', '');
-// permet d'avoir plus de détails sur les erreurs retournées
+    $connexion = new PDO('mysql:host=localhost;dbname=recettes;charset=utf8', 'root', '');
+    // permet d'avoir plus de détails sur les erreurs retournées
     $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $connexion;
+
 }
 
 //Fonction : vérifie le login de l'utilisateur
