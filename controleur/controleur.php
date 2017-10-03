@@ -2,6 +2,7 @@
 
 require "modele/modele.php";
 
+ob_start();
 
 // Affichage de la page d'accueil
 function accueil()
@@ -52,5 +53,39 @@ function logout()
 //permet de changer les mots de passes de chaque compte respectivement
 function resetPwd()
 {
+    if(isset($_POST) && !empty($_POST['pwdOld']) && !empty($_POST['pwdNew1']) && !empty($_POST['pwdNew2']))
+    {
+        extract($_POST);
+
+        $pwdFromBD = getPwdFromLogin($login);
+
+        if (isset($pwdFromBD) && !empty($pwdFromBD))
+        {
+            if (password_verify($pwdOld, $pwdFromBD))
+            {
+                if($pwdNew1 === $pwdNew2)
+                {
+                    insertNewPwd($pwdNew1,$login);
+
+                    $msg_err= "Le mot de passe du compte \"".$login."\" a été modifié avec succès!";
+                    require "vue/vue_changer_pwd.php";
+                }
+                else
+                {
+                    $msg_err= 'Les nouveaux mots de passe ne correspondent pas';
+                    require "vue/vue_changer_pwd.php";
+                }
+            }
+            else
+            {
+                $msg_err= 'L\'ancien mot de passe du compte spécifié est incorrect';
+                require "vue/vue_changer_pwd.php";
+            }
+        }
+    }
+    else
+    {
+        require "vue/vue_changer_pwd.php";
+    }
 
 }

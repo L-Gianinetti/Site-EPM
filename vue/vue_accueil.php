@@ -26,6 +26,5 @@ ob_start();
 
 
 <?php
-echo password_hash("pwd", PASSWORD_BCRYPT);
 $contenu = ob_get_clean();
 require "gabarit.php";

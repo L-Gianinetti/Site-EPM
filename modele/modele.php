@@ -29,3 +29,12 @@ function getPwdFromLogin($login)
         return '';
     }
 }
+
+//insetion du nouveau hachage pour un mot de passe
+function insertNewPwd($pwdNew,$login)
+{
+    $connexion = getBD();
+    $hachage = password_hash($pwdNew, PASSWORD_DEFAULT);
+    $requete = "UPDATE Login SET MotDePasse='".$hachage."' WHERE Identifiant ='".$login."'";
+    $connexion->query($requete);
+}

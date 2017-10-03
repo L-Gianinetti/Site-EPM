@@ -2,7 +2,7 @@
 $titre ='Plateforme échanges fiches techniques - Login';
 
 // Tampon de flux stocké en mémoire
-ob_start();
+
 ?>
 
     <script>
@@ -10,10 +10,10 @@ ob_start();
         $(document).ready(function(){
             $('#mConnexion').addClass('current');
         });
+
     </script>
 
 <header>
-
     <h2>Connexion</h2>
     <p>Veuillez vous connecter pour avoir accès au site.</p>
 </header>
@@ -26,7 +26,7 @@ if (isset($msg_err) && !empty($msg_err)) {
 
 ?>
 
-<form method="post" action="index.php?action=login">
+<form method="POST" action="index.php?action=login">
     <div>
         <label>Login : </label>
     </div>
@@ -43,8 +43,8 @@ if (isset($msg_err) && !empty($msg_err)) {
     <br/>
 
     <div>
-        <input type="submit" name="connecter" value="Se connecter"></input>
-        <input type="reset" value="Réinitialiser"></input>
+        <input type="submit" name="connecter" value="Se connecter"/>
+        <input type="reset" value="Réinitialiser"/>
     </div>
 
 </form>
