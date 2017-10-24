@@ -2,8 +2,6 @@
 
 require "modele/modele.php";
 
-ob_start();
-
 // Affichage de la page d'accueil
 function accueil()
 {
@@ -89,3 +87,39 @@ function resetPwd()
     }
 
 }
+
+function contenuPedagogique()
+{
+    if (isset($_POST) && !empty($_POST['type'])){
+        $resultats = getTypeContenuPedagogique();
+        $resultatContenuPedagogique = getContenuPedagogique($_POST['annee'],$_POST['type']);
+        require "vue/vue_contenu_pedagogique.php";
+    } else {
+        $resultats = getTypeContenuPedagogique();
+        require "vue/vue_contenu_pedagogique.php";
+    }
+}
+
+function ouvrirFichierContenuPedagogique($fichier) {
+    $rep = getRepStockage();
+    $file= $rep . $fichier;
+    if (file_exists(utf8_decode($file))) {
+        ouvrirFichier($file);
+    } else {
+        echo "aucun fichier n'existe pour le contenu pédagogique demandée";
+    }
+}
+
+function ouvrirFichier($file) {
+    header('Content-Description: File Transfer');
+    header('Content-Type: application/octet-stream');
+    header('Content-Disposition: attachment; filename="'.basename($file).'"');
+    header('Expires: 0');
+    header('Cache-Control: must-revalidate');
+    header('Pragma: public');
+    header('Content-Length: ' . filesize($file));
+    ob_clean();
+    readfile(utf8_decode($file));
+}
+
+?>

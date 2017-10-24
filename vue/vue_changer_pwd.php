@@ -1,5 +1,5 @@
 <?php
-$titre ='Plateforme échanges fiches techniques - Login';
+$titre ='Plateforme échanges fiches techniques - Changer mot de passe';
 
 // Tampon de flux stocké en mémoire
 ob_start();

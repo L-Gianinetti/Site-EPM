@@ -25,6 +25,13 @@ try
             case 'changer_pwd':
                 resetPwd();
                 break;
+            case 'afficher_contenu_pedagogique':
+                contenuPedagogique();
+                break;
+            case 'ouvrir_contenu_pedagogique':
+                $nomfichier = $_GET['fichier'];
+                ouvrirFichierContenuPedagogique($nomfichier); //appel de la fonction dans le controleur
+                break;
             default :
                 throw new Exception("action non valide");
         }

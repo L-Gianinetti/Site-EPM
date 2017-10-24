@@ -70,15 +70,15 @@
             <?php if (isset($_SESSION['login'])) {
                 ?>
 
-                <li id="mContenuPedagogique"><a href="index.php?action=rechercher_recettes">Contenu pédagogique</a></li>
-                <li id="mCorbeille"><a href="index.php?action=afficher_photo">Corbeille</a></li>
+                <li id="mContenuPedagogique"><a href="index.php?action=afficher_contenu_pedagogique">Contenu pédagogique</a></li>
+                <li id="mCorbeille"><a href="index.php?action=#">Corbeille</a></li>
                 <?php if($_SESSION['login']=="prof"){
                     ?>
-                    <li id="mDocumentationEnseignant"><a href="index.php?action=afficher_info_produit">Documentation enseignant</a></li>
+                    <li id="mDocumentationEnseignant"><a href="index.php?action=#">Documentation enseignant</a></li>
                 <?php } ?>
-                <li id="mFilms"><a href="index.php?action=afficher_info_theme">Films</a></li>
-                <li id="mPhotos"><a href="index.php?action=afficher_info_gouts">Photos</a></li>
-                <li id="mRecettes"><a href="index.php?action=afficher_info_techniques">Recettes</a></li>
+                <li id="mFilms"><a href="index.php?action=#">Films</a></li>
+                <li id="mPhotos"><a href="index.php?action=#">Photos</a></li>
+                <li id="mRecettes"><a href="index.php?action=#">Recettes</a></li>
 
                 <?php if (($_SESSION['login'] == "prof" ) ) {?>
                     <li id="mPwdChange"><a href="index.php?action=changer_pwd">Modifier le mot de passe</a></li>

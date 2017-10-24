@@ -38,3 +38,31 @@ function insertNewPwd($pwdNew,$login)
     $requete = "UPDATE Login SET MotDePasse='".$hachage."' WHERE Identifiant ='".$login."'";
     $connexion->query($requete);
 }
+
+//Retourne la catégorie des contenus pédagogiques
+function getTypeContenuPedagogique()
+{
+    $connexion = getBD();
+    $requete = "SELECT Nom FROM CategorieContenuPedagogique";
+    $resultats = $connexion->query($requete);
+    return $resultats;
+}
+
+function getContenuPedagogique($annee, $type)
+{
+    $connexion = getBD();
+    $requete = "SELECT CheminDonnee.Path as chemindonnee, ContenuPedagogique.Nom AS typenom FROM ContenuPedagogique INNER JOIN CategorieContenuPedagogique ON ContenuPedagogique.fkCategorieContenuPedagogique = CategorieContenuPedagogique.idCategorieContenuPedagogique INNER JOIN Annee ON ContenuPedagogique.fkAnnee = Annee.idAnnee INNER JOIN CheminDonnee ON ContenuPedagogique.fkCheminDonnee = CheminDonnee.idCheminDonnee INNER JOIN RepPrincipal ON CheminDonnee.fkRepPrincipal = RepPrincipal.idRepPrincipal WHERE CategorieContenuPedagogique.Nom = '".$type."' AND Annee.Annee =".$annee;
+    $resultats = $connexion->query($requete);
+    return $resultats;
+}
+
+function getRepStockage() {
+    $connexion = getBD();
+    $requete = "SELECT NomRep FROM RepPrincipal";
+    $resultats = $connexion->query($requete);
+    foreach  ($resultats as $row) {
+        return $row['NomRep'];
+    }
+    return "";
+}
+
