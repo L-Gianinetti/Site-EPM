@@ -34,3 +34,37 @@ function login()
         require "vue/vue_login.php";
     }
 }
+function recette()
+{
+    if (isset($_POST) && !empty($_POST['titre'])){
+        $resultats = getTypeRecette();
+        $resultatsRec = getRecette($_POST ['titre'], $_POST['type']);
+        require "vue/vue_recette.php";
+    } else {
+        $resultats = getTypeRecette();
+        require "vue/vue_recette.php";
+    }
+
+}
+
+function ouvrirFichierRecettes($fichier) {
+    $rep = getRepStockage();
+    $cheminDonnee = getCheminDonnee();
+    $file = $rep . $cheminDonnee . $fichier;
+    if (file_exists($file)){
+        ouvrirFichier($file);
+    } else{
+        echo "aucun fichier n'existe pour la recette demandée";
+    }
+}
+
+function ouvrirFichier($file) {
+    header('Content-Description: File Transfer');
+    header('Content-Type: application/octet-stream');
+    header('Content-Disposition: attachment; filename="'.basename($file).'"');
+    header('Expires: 0');
+    header('Cache-Control: must-revalidate');
+    header('Pragma: public');
+    header('Content-Length: ' . filesize($file));
+    readfile($file);
+}
