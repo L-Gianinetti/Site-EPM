@@ -13,8 +13,16 @@ try
             case 'login' :
                 login(); //appel de la fonction dans le controleur
                 break;
-                default :
+            case 'recette' :
+                recette();
+                break;
+            case 'ouvrir_recette' :
+                $nomfichier = $_GET['fichier'];
+                ouvrirFichierRecettes($nomfichier);
+                break;
+            default :
                 throw new Exception("action non valide");
+
         }
     }
     else
