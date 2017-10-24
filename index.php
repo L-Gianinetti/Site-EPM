@@ -13,7 +13,11 @@ try
             case 'login' :
                 login(); //appel de la fonction dans le controleur
                 break;
-                default :
+            case 'vue_documentation_de_lenseignant' :
+                recherche_doc_enseignant();
+                break;
+
+            default :
                 throw new Exception("action non valide");
         }
     }
