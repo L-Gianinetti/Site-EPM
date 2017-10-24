@@ -39,6 +39,16 @@ function login()
     }
 
 }
+function recette()
+{
+    if (isset($_POST) && !empty($_POST['titre'])){
+        $resultats = getTypeRecette();
+        $resultatsRec = getRecette($_POST ['titre'], $_POST['type']);
+        require "vue/vue_recette.php";
+    } else {
+        $resultats = getTypeRecette();
+        require "vue/vue_recette.php";
+}
 
 //déconnecte l'utilisateur retourne au menu
 function logout()
@@ -85,9 +95,19 @@ function resetPwd()
     {
         require "vue/vue_changer_pwd.php";
     }
-
 }
 
+
+function ouvrirFichierRecettes($fichier) {
+    $rep = getRepStockage();
+    $cheminDonnee = getCheminDonnee();
+    $file = $rep . $cheminDonnee . $fichier;
+    if (file_exists(utf8_decode($file))){
+        ouvrirFichier($file);
+    } else{
+        echo "aucun fichier n'existe pour la recette demandée";
+   }
+  
 function contenuPedagogique()
 {
     if (isset($_POST) && !empty($_POST['type'])){
@@ -118,8 +138,10 @@ function ouvrirFichier($file) {
     header('Cache-Control: must-revalidate');
     header('Pragma: public');
     header('Content-Length: ' . filesize($file));
+  
     ob_clean();
     readfile(utf8_decode($file));
 }
 
 ?>
+

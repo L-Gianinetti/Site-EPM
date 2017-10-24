@@ -10,7 +10,9 @@
 // sortie : $connexion
 function getBD() {
     $connexion = new PDO('mysql:host=localhost;dbname=epm3;charset=utf8', 'root', '');
-    // permet d'avoir plus de détails sur les erreurs retournées
+
+// permet d'avoir plus de détails sur les erreurs retournées
+
     $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $connexion;
 
@@ -28,6 +30,13 @@ function getPwdFromLogin($login)
     } else {
         return '';
     }
+}
+
+
+function getTypeRecette()
+{
+    $connexion = getBD();
+    $requete = "SELECT nom FROM categoriePlat";
 }
 
 //insetion du nouveau hachage pour un mot de passe
@@ -48,12 +57,29 @@ function getTypeContenuPedagogique()
     return $resultats;
 }
 
+
+function getRecette($titre, $type)
+{
+    $connexion = getBD();
+    $requete = "SELECT recette.Titre, recette.idCheminDonnee, categorieplat.Nom as categorieplatNom from recette inner join categorieplat on recette.fkCategoriePlat  = categorieplat.idCategoriePlat  where recette.Titre like '" .$titre . "%'  and categorieplat.Nom = '" . $type ."'" ;
+}
+
 function getContenuPedagogique($annee, $type)
 {
     $connexion = getBD();
     $requete = "SELECT CheminDonnee.Path as chemindonnee, ContenuPedagogique.Nom AS typenom FROM ContenuPedagogique INNER JOIN CategorieContenuPedagogique ON ContenuPedagogique.fkCategorieContenuPedagogique = CategorieContenuPedagogique.idCategorieContenuPedagogique INNER JOIN Annee ON ContenuPedagogique.fkAnnee = Annee.idAnnee INNER JOIN CheminDonnee ON ContenuPedagogique.fkCheminDonnee = CheminDonnee.idCheminDonnee INNER JOIN RepPrincipal ON CheminDonnee.fkRepPrincipal = RepPrincipal.idRepPrincipal WHERE CategorieContenuPedagogique.Nom = '".$type."' AND Annee.Annee =".$annee;
     $resultats = $connexion->query($requete);
     return $resultats;
+}
+
+function getCheminDonnee()
+{
+    $connexion = getBD();
+    $requete = "SELECT Path from chemindonnee";
+    $resultat = $connexion->query($requete);
+    foreach ($resultat as $row){
+        return $row['Path'];
+    }
 }
 
 function getRepStockage() {
@@ -65,4 +91,3 @@ function getRepStockage() {
     }
     return "";
 }
-

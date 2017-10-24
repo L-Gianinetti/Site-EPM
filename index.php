@@ -19,6 +19,12 @@ try
             case 'login' :
                 login(); //appel de la fonction dans le controleur
                 break;
+            case 'recette' :
+                recette();
+                break;
+            case 'ouvrir_recette' :
+                $nomfichier = $_GET['fichier'];
+                ouvrirFichierRecettes($nomfichier);
             case 'logout' :
                 logout();
                 break;
@@ -34,6 +40,7 @@ try
                 break;
             default :
                 throw new Exception("action non valide");
+
         }
     }
     else
