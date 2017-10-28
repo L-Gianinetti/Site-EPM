@@ -31,9 +31,9 @@
 				<!-- Nav -->
 					<nav id="nav">
 						<ul>
-							<li class="current"><a href="#">Latest Post</a></li>
-							<li><a href="#">Archives</a></li>
-							<li><a href="#">About Me</a></li>
+							<li class="current"><a href="#">Latest Post</a></li>s
+                            <li id="mdocenseignant"><a href="index.php?action=rechercher_doc_enseignant">Documentation enseignants</a></li>
+                            <li><a href="#">About Me</a></li>
 							<li><a href="#">Contact Me</a></li>
 						</ul>
 					</nav>

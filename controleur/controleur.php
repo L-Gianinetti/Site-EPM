@@ -34,3 +34,16 @@ function login()
         require "vue/vue_login.php";
     }
 }
+
+function recherche_doc_enseignant() {
+    // appeler la fonction définie dans modele.php qui va rechercher la liste des années d'étude (1ère année, 2ème année, 3ème année)
+    // et qui retourne la réponse à la requête permettant de récupérer la liste des années, i.e. tout le contenu de la table contenant les noms des années
+
+    // appeler la fonction définie dans modele.php qui va rechercher le répertoire dans lequel se trouvent les documents de l'enseignant
+
+    if (isset($_POST) && !empty($_POST['semaine']) && !empty($_POST['annee'])) {
+        $resultatsDoc = get_doc_enseignant($_POST['annee'], $_POST['semaine']);
+    }
+    require "vue/vue_doc_enseignant.php";
+}
+

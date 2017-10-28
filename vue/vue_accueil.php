@@ -1,10 +1,10 @@
 <?php
-$titre ='Plateforme échanges fiches techniques - Accueil';
+$titre ='Plateforme échanges fiches techniques - Ajout de documents';
 // Tampon de flux stocké en mémoire
 ob_start();
 ?>
     <header>
-        <h2>Plateforme d'échanges de fiches techniques</h2>
+        <h2>Header</h2>
     </header>
     <p>
         Ce site est réservé pour la classe de 3ème de l'EPM. Il permet aux élèves de
