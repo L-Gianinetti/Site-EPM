@@ -1,18 +1,21 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Lucas.GIANINETTI
+ * User: Melvyn.HERZIG
  * Date: 05.09.2017
- * Time: 14:01
+ * Time: 14:02
  */
+
 // connexion au serveur MySQL et à la BD
 // sortie : $connexion
 function getBD() {
     $connexion = new PDO('mysql:host=localhost;dbname=epm;charset=utf8', 'root', '');
-  
+
 // permet d'avoir plus de détails sur les erreurs retournées
+
     $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $connexion;
+
 }
 
 //Fonction : vérifie le login de l'utilisateur
@@ -20,33 +23,15 @@ function getBD() {
 function getPwdFromLogin($login)
 {
     $connexion = getBD();
-    $requete = "SELECT idUser, pwd FROM Rights WHERE login='" . $login . "'";
+    $requete = "SELECT Identifiant, MotDePasse FROM Login WHERE Identifiant='" . $login . "'";
     $resultats = $connexion->query($requete);
     if ($donnees = $resultats->fetch()) {
-        return $donnees['pwd'];
+        return $donnees['MotDePasse'];
     } else {
         return '';
     }
 }
 
-//Fonction: recherche les photos selon la categorie
-//Sortie :  résultat de la requête
-function getPhoto($categorie){
-    $connexion = getBD();
-    if($categorie == 'tout'){
-        $requete = "SELECT Nom, fkCategoriePhoto FROM photo";
-    }else{
-            if($categorie == 'Annee2' || $categorie == 'tout2'){
-                $requete = "SELECT Nom, fkCategoriePhoto FROM photo WHERE fkCategoriePhoto = 1 OR fkCategoriePhoto = 4";
-            }else{
-                if($categorie == 'Annee3' || $categorie == 'tout3'){
-                    $requete = "SELECT Nom, fkCategoriePhoto FROM photo WHERE fkCategoriePhoto = 5 OR fkCategoriePhoto = 6 OR fkCategoriePhoto = 7";
-                }else{
-                    $requete = "SELECT Nom, fkCategoriePhoto FROM photo WHERE fkCategoriePhoto='" . $categorie . "'";
-                }
-            }
-    }
-}
 //Fonction : cherche les documents dans la base de données
 //Sortie : $documents
 function getDocuments() {
@@ -62,12 +47,13 @@ function nsemaines() {
     return $nsemaines;
 }
 
-function nannees() {
+function nannees()
+{
     $connexion = getBD();
     $requete = "SELECT * FROM annee";
     $nannees = $connexion->query($requete);
     return $nannees;
-
+}
 function getTypeRecette()
 {
     $connexion = getBD();
@@ -105,5 +91,24 @@ function getContenuPedagogique($annee, $type)
     $requete = "SELECT CheminDonnee.Path as chemindonnee, ContenuPedagogique.Nom AS typenom FROM ContenuPedagogique INNER JOIN CategorieContenuPedagogique ON ContenuPedagogique.fkCategorieContenuPedagogique = CategorieContenuPedagogique.idCategorieContenuPedagogique INNER JOIN Annee ON ContenuPedagogique.fkAnnee = Annee.idAnnee INNER JOIN CheminDonnee ON ContenuPedagogique.fkCheminDonnee = CheminDonnee.idCheminDonnee INNER JOIN RepPrincipal ON CheminDonnee.fkRepPrincipal = RepPrincipal.idRepPrincipal WHERE CategorieContenuPedagogique.Nom = '".$type."' AND Annee.Annee =".$annee;
     $resultats = $connexion->query($requete);
     return $resultats;
+}
 
+function getCheminDonnee()
+{
+    $connexion = getBD();
+    $requete = "SELECT Path from chemindonnee";
+    $resultat = $connexion->query($requete);
+    foreach ($resultat as $row){
+        return $row['Path'];
+    }
+}
+
+function getRepStockage() {
+    $connexion = getBD();
+    $requete = "SELECT NomRep FROM RepPrincipal";
+    $resultats = $connexion->query($requete);
+    foreach  ($resultats as $row) {
+        return $row['NomRep'];
+    }
+    return "";
 }
