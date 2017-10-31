@@ -1,17 +1,21 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Lucas.GIANINETTI
+ * User: Melvyn.HERZIG
  * Date: 05.09.2017
- * Time: 14:01
+ * Time: 14:02
  */
+
 // connexion au serveur MySQL et à la BD
 // sortie : $connexion
 function getBD() {
-    $connexion = new PDO('mysql:host=localhost;dbname=cpm ;charset=utf8', 'root', '');
+    $connexion = new PDO('mysql:host=localhost;dbname=epm3;charset=utf8', 'root', '');
+
 // permet d'avoir plus de détails sur les erreurs retournées
+
     $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $connexion;
+
 }
 
 //Fonction : vérifie le login de l'utilisateur
@@ -19,11 +23,71 @@ function getBD() {
 function getPwdFromLogin($login)
 {
     $connexion = getBD();
-    $requete = "SELECT idUser, pwd FROM Rights WHERE login='" . $login . "'";
+    $requete = "SELECT Identifiant, MotDePasse FROM Login WHERE Identifiant='" . $login . "'";
     $resultats = $connexion->query($requete);
     if ($donnees = $resultats->fetch()) {
-        return $donnees['pwd'];
+        return $donnees['MotDePasse'];
     } else {
         return '';
     }
+}
+
+
+function getTypeRecette()
+{
+    $connexion = getBD();
+    $requete = "SELECT nom FROM categoriePlat";
+}
+
+//insetion du nouveau hachage pour un mot de passe
+function insertNewPwd($pwdNew,$login)
+{
+    $connexion = getBD();
+    $hachage = password_hash($pwdNew, PASSWORD_DEFAULT);
+    $requete = "UPDATE Login SET MotDePasse='".$hachage."' WHERE Identifiant ='".$login."'";
+    $connexion->query($requete);
+}
+
+//Retourne la catégorie des contenus pédagogiques
+function getTypeContenuPedagogique()
+{
+    $connexion = getBD();
+    $requete = "SELECT Nom FROM CategorieContenuPedagogique";
+    $resultats = $connexion->query($requete);
+    return $resultats;
+}
+
+
+function getRecette($titre, $type)
+{
+    $connexion = getBD();
+    $requete = "SELECT recette.Titre, recette.idCheminDonnee, categorieplat.Nom as categorieplatNom from recette inner join categorieplat on recette.fkCategoriePlat  = categorieplat.idCategoriePlat  where recette.Titre like '" .$titre . "%'  and categorieplat.Nom = '" . $type ."'" ;
+}
+
+function getContenuPedagogique($annee, $type)
+{
+    $connexion = getBD();
+    $requete = "SELECT CheminDonnee.Path as chemindonnee, ContenuPedagogique.Nom AS typenom FROM ContenuPedagogique INNER JOIN CategorieContenuPedagogique ON ContenuPedagogique.fkCategorieContenuPedagogique = CategorieContenuPedagogique.idCategorieContenuPedagogique INNER JOIN Annee ON ContenuPedagogique.fkAnnee = Annee.idAnnee INNER JOIN CheminDonnee ON ContenuPedagogique.fkCheminDonnee = CheminDonnee.idCheminDonnee INNER JOIN RepPrincipal ON CheminDonnee.fkRepPrincipal = RepPrincipal.idRepPrincipal WHERE CategorieContenuPedagogique.Nom = '".$type."' AND Annee.Annee =".$annee;
+    $resultats = $connexion->query($requete);
+    return $resultats;
+}
+
+function getCheminDonnee()
+{
+    $connexion = getBD();
+    $requete = "SELECT Path from chemindonnee";
+    $resultat = $connexion->query($requete);
+    foreach ($resultat as $row){
+        return $row['Path'];
+    }
+}
+
+function getRepStockage() {
+    $connexion = getBD();
+    $requete = "SELECT NomRep FROM RepPrincipal";
+    $resultats = $connexion->query($requete);
+    foreach  ($resultats as $row) {
+        return $row['NomRep'];
+    }
+    return "";
 }
