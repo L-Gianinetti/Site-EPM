@@ -19,6 +19,11 @@ try
             case 'login' :
                 login(); //appel de la fonction dans le controleur
                 break;
+
+            case 'vue_documentation_de_lenseignant' :
+                recherche_doc_enseignant();
+                break;
+
             case 'recette' :
                 recette();
                 break;

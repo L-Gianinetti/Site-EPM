@@ -9,7 +9,7 @@
 // connexion au serveur MySQL et à la BD
 // sortie : $connexion
 function getBD() {
-    $connexion = new PDO('mysql:host=localhost;dbname=epm3;charset=utf8', 'root', '');
+    $connexion = new PDO('mysql:host=localhost;dbname=epm ;charset=utf8', 'root', '');
 
 // permet d'avoir plus de détails sur les erreurs retournées
 
@@ -32,6 +32,26 @@ function getPwdFromLogin($login)
     }
 }
 
+//Fonction : cherche les documents dans la base de données
+//Sortie : $documents
+function getDocuments() {
+    $connexion = getBD();
+    $requete =  "SELECT * FROM documentationenseignant WHERE ";
+    return '';
+}
+
+function nsemaines() {
+    $connexion = getBD();
+    $requete = "SELECT * FROM semaine";
+    $nsemaines = $connexion->query($requete);
+    return $nsemaines;
+}
+
+function nannees() {
+    $connexion = getBD();
+    $requete = "SELECT * FROM annee";
+    $nannees = $connexion->query($requete);
+    return $nannees;
 
 function getTypeRecette()
 {
