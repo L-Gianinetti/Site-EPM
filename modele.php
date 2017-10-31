@@ -9,7 +9,7 @@
 // connexion au serveur MySQL et à la BD
 // sortie : $connexion
 function getBD() {
-    $connexion = new PDO('mysql:host=localhost;dbname=epm ;charset=utf8', 'root', '');
+    $connexion = new PDO('mysql:host=localhost;dbname=epm;charset=utf8', 'root', '');
 
 // permet d'avoir plus de détails sur les erreurs retournées
 
