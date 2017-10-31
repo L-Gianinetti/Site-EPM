@@ -45,7 +45,6 @@ function recherche_doc_enseignant() {
         $resultatsDoc = get_doc_enseignant($_POST['annee'], $_POST['semaine']);
     }
     require "vue/vue_doc_enseignant.php";
-
 }
 function recette()
 {
@@ -91,8 +90,6 @@ function photo()
         $resultats = getPhoto($categorie);
         require "vue/vue_photo.php";
     }
-
-
 }
 
 
