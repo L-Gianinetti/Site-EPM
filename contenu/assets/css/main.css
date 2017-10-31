@@ -2931,3 +2931,15 @@
 			}
 
 	}
+
+
+/* Mes modifications */
+.image{
+	width: 250px;
+	padding-bottom: 30px;
+}
+#gallerie{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
